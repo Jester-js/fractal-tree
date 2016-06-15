@@ -133,8 +133,8 @@ const draw = (objCoords, angle, l) => {
     if (iteratorLevels >= factorial(prevFactorial)) {
         lessStroke();
         prevFactorial++;
+        nextColor();
     }
-    nextColor();
 
     const line = paper.path(`M${a} ${b}L${a} ${b}`);
     line.attr(style);

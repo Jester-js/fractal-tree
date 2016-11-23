@@ -25,7 +25,8 @@ let colors = ["rgb(255,15,0)", "rgb(255,30,0)", "rgb(255,45,0)",
     "rgb(105,0,255)", "rgb(120,0,255)", "rgb(135,0,255)",
     "rgb(150,0,255)", "rgb(165,0,255)", "rgb(180,0,255)",
     "rgb(195,0,255)", "rgb(210,0,255)", "rgb(225,0,255)",
-    "rgb(240,0,255)", "rgb(255,0,255)"]
+    "rgb(240,0,255)", "rgb(255,0,255)"
+]
 
 let style = {
     fill: colors[0],
@@ -97,9 +98,9 @@ const fromRadToDeg = (rad) => {
 
 let slength = 100,
     length = slength,
-    divAngle = 20,
+    divAngle = 30,
     minLength = 2,
-    cL = .999;
+    cL = .9999;
 
 let iteratorLevels = 1;
 
@@ -133,8 +134,8 @@ const draw = (objCoords, angle, l) => {
     if (iteratorLevels >= factorial(prevFactorial)) {
         lessStroke();
         prevFactorial++;
-        nextColor();
     }
+    nextColor();
 
     const line = paper.path(`M${a} ${b}L${a} ${b}`);
     line.attr(style);

@@ -5,5 +5,5 @@
 
 # Use:
 
-Open `index.html` in your browser, make small slace and click on window.
+Open `index.html` in your browser, make small scale and click on window.
 enjoy.

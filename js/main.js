@@ -1,64 +1,50 @@
-const paper = Snap('#field')
-let startStroke = 20;
-const color = '#191917'
+const paper = Snap('#field');
+const startStroke = 20;
+const color = '#191917';
 
 const style = {
   fill: color,
   stroke: color,
   strokeWidth: startStroke,
   radius: 20
-}
+};
 
 const lessStroke = () => {
-  if (style.strokeWidth > 1) {
+  if (style.strokeWidth > 1)
     style.strokeWidth = style.strokeWidth - 3
-  }
-}
+};
 
-const Window = {}
+const Window = {
+  w: window.innerWidth,
+  h: window.innerHeight,
+  cx: window.innerWidth / 2,
+  cy: window.innerHeight / 2,
+};
 
-Window.w = window.innerWidth
-Window.h = window.innerHeight
-Window.cx = window.innerWidth / 2
-Window.cy = window.innerHeight / 2
-
-const showWindowSizeDetail = () => {
+const showWindowSizeDetail = _ => {
   console.log(`Window size: ${Window.w}x${Window.h}; Window center (x, y): (${Window.cx}, ${Window.cy})`);
-}
+};
 
 showWindowSizeDetail();
 
 const setCenter = (x, y) => {
   Window.cx = x;
   Window.cy = y;
-}
+};
 
 setCenter(Window.w / 2, Window.h / 2);
 
 const getWindowCoord = (coord, name) => {
   switch (name) {
-    case 'x':
-      return Window.cx - coord;
-      break;
-    case 'y':
-      return Window.cy - coord;
-      break;
-    default:
-      return false;
-      break;
+    case 'x': return Window.cx - coord;
+    case 'y': return Window.cy - coord;
+    default: return false;
   }
-}
+};
 
-const fromDegToRad = (deg) => {
-  return (2 * deg * Math.PI) / 360;
-}
+const fromDegToRad = deg => (2 * deg * Math.PI) / 360;
 
-const fromRadToDeg = (rad) => {
-  let q = rad;
-  let w = rad * 360;
-  let e = 2 * Math.PI;
-  return w / e;
-}
+const fromRadToDeg = rad => rad * 360 / 2 * Math.PI;
 
 let slength = 100,
     length = slength,
@@ -74,16 +60,16 @@ const factorial = (n) => {
   let f = 1;
   while (n != 0) {
     f = f * n;
-    n--
-  }
+    n--;
+  };
   return f;
-}
+};
 
 const draw = (objCoords, angle, l) => {
   let a = objCoords.a,
       b = objCoords.b;
 
-  setCenter(a, b)
+  setCenter(a, b);
 
   length = l;
 
@@ -92,13 +78,13 @@ const draw = (objCoords, angle, l) => {
   let x = length * Math.cos(A);
   let y = length * Math.sin(A);
 
-  x = getWindowCoord(x, 'x')
-  y = getWindowCoord(y, 'y')
+  x = getWindowCoord(x, 'x');
+  y = getWindowCoord(y, 'y');
 
   if (iteratorLevels >= factorial(prevFactorial)) {
     lessStroke();
     prevFactorial++;
-  }
+  };
 
   const line = paper.path(`M${a} ${b}L${a} ${b}`);
   line.attr(style);
@@ -113,15 +99,14 @@ const draw = (objCoords, angle, l) => {
       const nextCoords = {};
       nextCoords.a = x;
       nextCoords.b = y;
-      if (num != 5 && num != 4) {
-        draw(nextCoords, angle - divAngle, length * cL)
-      }
-      if (num != 7 && num != 6 && num != 3) {
-        draw(nextCoords, angle + divAngle, length * cL)
-      }
-    }
+      if (num != 5 && num != 4)
+        draw(nextCoords, angle - divAngle, length * cL);
+
+      if (num != 7 && num != 6 && num != 3)
+        draw(nextCoords, angle + divAngle, length * cL);
+    };
   })
-}
+};
 
 window.onclick = (e) => {
   const startCoords = {};
@@ -131,6 +116,6 @@ window.onclick = (e) => {
 
   setCenter(e.pageX, e.pageY);
 
-  const startAngle = Math.floor(Math.random() * 360)
+  const startAngle = Math.floor(Math.random() * 360);
   draw(startCoords, startAngle, length);
-}
+};
